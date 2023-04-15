@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Link extends Model
 {
     protected $table = 'link';
-    protected $fillable = ['title_link'];
+    protected $fillable = [
+        'title_link',
+        'redirect_url',
+        'maximum_cliks'
+    ];
 }

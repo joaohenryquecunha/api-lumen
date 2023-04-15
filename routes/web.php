@@ -1,7 +1,11 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
+// header('Access-Control-Allow-Origin: *');/*permite a comunucação com vueJS localmente*/
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers:*');
+header('Access-Control-Allow-Methods: PUT, PATCH, DELETE, POST');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,20 +17,23 @@ header('Access-Control-Allow-Origin: *');
 | and give it the Closure to call when that URI is requested.
 |
 */
-
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LinkController;
+$controller = new LinkController();
 
 //link principal
-$router->post('/', 'APIcontroller@createlink');
-$router->get('/', 'APIcontroller@listaLink');
-$router->put('/{id}','APIcontroller@updatelink');
-$router->delete('/{id}','APIcontroller@deletelink');
+$router->group(['prefix' => "/api/links"],function() use ($router){
 
-//criar url em outra página
-$router->post('/redirect/{id}', 'APIcontroller@createurl');
-$router->get('/redirect/{id}', 'APIcontroller@listaurl');
-$router->put('/redirect/{id}','APIcontroller@updateurl');
-$router->delete('/redirect/{id}','APIcontroller@deleteurl');
+    $router->post('/', 'LinkController@create');
+    $router->get('/', 'LinkController@index');
+    $router->put('/{id}', 'LinkController@update');
+    $router->delete('/{id}', 'LinkController@deleteLink');
+    
+    $router->post('/{id}/sublinks/createSub', 'LinkController@createSub');
+    $router->get('/{link_id}/sublinks', 'LinkController@listSublinks');
+    $router->put('/{link_id}/sublinks/{sub_id}', 'LinkController@updateSublink');
+    $router->delete('/{id}/sublinks/{sub_id}', 'LinkController@deleteSublink');
+});
 
 
 

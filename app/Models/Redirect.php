@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Redirect extends Model
 {
     protected $table = 'redirect';
-    protected $fillable = ['url'];
+    protected $fillable = [
+        'url',
+        'current_click',
+        'max_click'
+    ];
     
 }
