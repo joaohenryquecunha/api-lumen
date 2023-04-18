@@ -29,10 +29,10 @@ $router->group(['prefix' => "/api/links"],function() use ($router){
     $router->put('/{id}', 'LinkController@update');
     $router->delete('/{id}', 'LinkController@deleteLink');
     
-    $router->post('/{id}/sublinks/createSub', 'LinkController@createSub');
-    $router->get('/{link_id}/sublinks', 'LinkController@listSublinks');
-    $router->put('/{link_id}/sublinks/{sub_id}', 'LinkController@updateSublink');
-    $router->delete('/{id}/sublinks/{sub_id}', 'LinkController@deleteSublink');
+    $router->post('/{id}/sublinks', 'LinkController@createSub');
+    $router->get('/{id}/sublinks', 'LinkController@listSublinks');
+    $router->put('/{id}/sublinks/{id_sub}', 'LinkController@updateSublink');
+    $router->delete('/{id}/sublinks/{id_sub}', 'LinkController@deleteSublink');
 });
 
 

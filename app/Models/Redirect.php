@@ -10,7 +10,8 @@ class Redirect extends Model
     protected $fillable = [
         'url',
         'current_click',
-        'max_click'
+        'max_click',
+        'link_id'
     ];
     
 }
