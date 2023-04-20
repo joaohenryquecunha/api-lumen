@@ -1,23 +1,5 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
-// header('Access-Control-Allow-Origin: *');/*permite a comunucação com vueJS localmente*/
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers:*');
-header('Access-Control-Allow-Methods: PUT, PATCH, DELETE, POST');
-
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
-|
-*/
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LinkController;
 $controller = new LinkController();
 
@@ -34,8 +16,3 @@ $router->group(['prefix' => "/api/links"],function() use ($router){
     $router->put('/{id}/sublinks/{id_sub}', 'LinkController@updateSublink');
     $router->delete('/{id}/sublinks/{id_sub}', 'LinkController@deleteSublink');
 });
-
-
-
-
-
