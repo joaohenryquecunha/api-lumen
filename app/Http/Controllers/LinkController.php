@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Link;
 use App\Models\Redirect;
+use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -16,14 +18,14 @@ class LinkController extends Controller
         $link->title_link = $request->input('title_link');
         $link->redirect_url = $request->input('redirect_url');
         $link->save();
-
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'link' => $link]);
     }
 
     public function index()
     {
         $links = Link::all();
         return response()->json(['links' => $links]);
+        
     }
 
     public function update(Request $request, $id)
@@ -32,8 +34,10 @@ class LinkController extends Controller
         $link->title_link = $request->input('title_link');
         $link->redirect_url = $request->input('redirect_url');
         $link->save();
-
-        return response()->json(['success' => true]);
+        
+        
+        
+        return response()->json(['success' => true,]);
     }
 
     public function deleteLink($id)
@@ -52,16 +56,17 @@ class LinkController extends Controller
         $redirect->link_id = $id;
     
         $redirect->save();
-    
+        
         return response()->json(['success' => true, 'redirect' => $redirect]);
     }
     
     public function listSublinks($id)
 {
     $redirect = Redirect::where('link_id', $id)->get();
-
+    
     return response()->json([
         'sublinks' => $redirect
+        
     ]);
 }
 
@@ -79,7 +84,6 @@ public function updateSublink(Request $request, $id, $id_sub)
     $sublink->url = $request->input('url');
     $sublink->max_click = $request->input('max_click');
     $sublink->save();
-
     return response()->json([
         'sublink' => $sublink
     ]);
@@ -102,4 +106,6 @@ public function updateSublink(Request $request, $id, $id_sub)
             'message' => 'Sublink deleted successfully'
         ]);
     }
+    
+
 }

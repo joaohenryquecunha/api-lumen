@@ -12,4 +12,16 @@ class Link extends Model
         'redirect_url',
         'maximum_cliks'
     ];
+
+    public function redirects()
+    {
+        return $this->hasMany(Redirect::class);
+    }
+
+    public function updateMaxClicks()
+    {
+        $sum = $this->redirects()->sum('max_click');
+        $this->maximum_cliks = $sum;
+        $this->save();
+    }
 }
