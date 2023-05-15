@@ -15,4 +15,7 @@ $router->group(['prefix' => "/api/links"],function() use ($router){
     $router->get('/{id}/sublinks', 'LinkController@listSublinks');
     $router->put('/{id}/sublinks/{id_sub}', 'LinkController@updateSublink');
     $router->delete('/{id}/sublinks/{id_sub}', 'LinkController@deleteSublink');
-});
+    $router->put('count/{id}/sublinks/{id_sub}/', 'LinkController@updateClickCount');
+    
+    
+}); 

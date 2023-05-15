@@ -19,6 +19,7 @@ class LinkController extends Controller
         $link->redirect_url = $request->input('redirect_url');
         $link->save();
         return response()->json(['success' => true, 'link' => $link]);
+        
     }
 
     public function index()
@@ -37,7 +38,7 @@ class LinkController extends Controller
         
         
         
-        return response()->json(['success' => true,]);
+        return response()->json(['success' => true,'link' => $link]);
     }
 
     public function deleteLink($id)
@@ -64,10 +65,7 @@ class LinkController extends Controller
 {
     $redirect = Redirect::where('link_id', $id)->get();
     
-    return response()->json([
-        'sublinks' => $redirect
-        
-    ]);
+    return response()->json(['sublinks' => $redirect]);
 }
 
 
@@ -84,9 +82,7 @@ public function updateSublink(Request $request, $id, $id_sub)
     $sublink->url = $request->input('url');
     $sublink->max_click = $request->input('max_click');
     $sublink->save();
-    return response()->json([
-        'sublink' => $sublink
-    ]);
+    return response()->json(['sublink' => $sublink]);
 }
 
 
@@ -106,6 +102,22 @@ public function updateSublink(Request $request, $id, $id_sub)
             'message' => 'Sublink deleted successfully'
         ]);
     }
+
+    //contador de cliques
+    public function updateClickCount($id,$id_sub)
+{
+    $sublink = Redirect::where('id', $id_sub)->where('link_id', $id)->first();
+    if (!$sublink) {
+        return response()->json([
+            'error' => 'Sublink not found'
+        ], 404);
+    }
+    $sublink->current_click++;
+    $sublink->save();
+    
+    return response()->json(['current_click' => $sublink->current_click]);
+}
+
     
 
 }
